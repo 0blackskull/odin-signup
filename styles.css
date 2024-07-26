@@ -129,17 +129,18 @@ html {
       padding: 1rem 0;
       font-size: clamp(3rem, 8vw, 5rem);
       font-family: 'odin-logo', 'Courier New', Courier, monospace;
-
-      a:link,
-      a:visited {
-        color: whitesmoke;
-      }
     }
   }
 
   /* Image Credits */
   >span {
     bottom: 1rem;
+
+    a,
+    a:link,
+    a:visited {
+      color: whitesmoke;
+    }
   }
 }
 
@@ -149,11 +150,11 @@ html {
   /* Width according to 80 characters max rule */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: min(80ch, 100%);
 
   /* Responsive padding for right part of sign up page */
-  padding: clamp(3rem, 20vw, 6rem) 0 clamp(3rem, 20vw, 6rem) clamp(1.5rem, 10vw, 4rem);
+  padding: clamp(3rem, 20vw, 6rem) clamp(1.5rem, 10vw, 4rem);
 
   gap: min(10vw, 5rem);
 
@@ -174,41 +175,70 @@ html {
       display: flex;
       flex-wrap: wrap;
       align-items: flex-start;
-      column-gap: 10vw;
+      column-gap: 10ch;
+    }
+
+    .label-input {
+      width: 30ch;
     }
 
     input {
-      width: 30ch;
+      width: 100%;
+      font-size: 1.4rem;
+      font-family: 'monospace','Times New Roman', Times, serif;
+      border-radius: 5px;
+      border: 2px #ebecef solid;
+      padding: 0.5ch 1ch;
+    }
+
+    input:focus {
+      border-color: #5478e0;
+      box-shadow: 3px 3px 3px grey;
+      outline: none;
+    }
+
+    input:invalid {
+      border-color: #db8c8c;
+      box-shadow: none;
     }
 
     .form-row label {
       display: block;
-      margin: 1.5rem 0.5rem 0 0;
+      margin: 1.5rem 0 0.5rem 0;
       font-size: 1rem;
+      letter-spacing: 0.2vw;
+      font-weight: bold;
+      color: #3a434f;
     }
 
     button[type='submit'] {
       margin: 3rem 0;
-      font-size: 1.5rem;
-      padding: 0.75ch;
+      font-size: 1.4rem;
+      padding: 1ch 3vw;
       border-radius: 0.5vw;
+      background-color: #596d48;
+      color: whitesmoke;
+      font-weight: bold;
+      border: none;
     }
 
+    /* Already have an... */
     p:last-child {
-      font-size: 1rem;
+      font-size: 1.3rem;
+
+      a,
+      a:link,
+      a:visited {
+        color: #596d48;
+        font-weight: bold;
+        text-decoration: none;
+      }
     }
   }
 }
 
-/* Screen width decreasing, first Odin Logo Text disappears*/
-@media only screen and (max-width: 1000px) {
-  .left > div > span {
-    display: none;
-  }
-}
-
-/* Screen width decreasing, then .left disappears*/
-@media only screen and (max-width: 700px) {
+/* Screen width decreasing, .left disappears*/
+@media only screen and (max-width: 800px) {
   .left {
     display: none;
   }
