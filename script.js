@@ -2,20 +2,18 @@ class FormValidator {
   constructor (id) {
     this.input = document.querySelector(`.signup-container input#${id}`);
     this.errorElement = document.querySelector(`#${id}+span.error`);
-    this.initiate();
+
+     /* Following this corresponds to class context because we made 
+      this callback a arrow function */  
+    this.input.addEventListener("input", (event) => this.validate());
+
+    this.clear();
   }
 
-  initiate() {
-    this.input.addEventListener("input", (event) => {
-      /* Following this corresponds to class context because we made 
-      this callback a arrow function */
-      if (this.input.validity.valid) {
-        console.log('I am valid');
-        this.errorElement.textContent = '';
-      } else {
-        this.validate();
-      }
-    });
+
+  clear() {
+    this.errorElement.textContent = '';
+    this.input.setCustomValidity('');
   }
  
   // Abstract
@@ -29,7 +27,10 @@ class FormValidator {
    */
   showError (errorMessage) {
 
-    if (errorMessage.length == 0) return;
+    if (!errorMessage || errorMessage.length == 0) {
+      this.clear();
+      return;
+    }
 
     if (!this.errorElement) return;
 
@@ -49,10 +50,10 @@ class EmailValidation extends FormValidator {
   validate () {
     let errorMessage = '';
 
-    if (this.input.validity.valueMissing) {
+    if (this.input.validity.valueMissing || this.input.value.length == 0) {
       errorMessage = 'Please enter email address!';
     } else if (this.input.validity.typeMismatch) {
-      errorMessage = 'Entered value needs to be an email address.';
+      errorMessage = 'This needs to be an email address.';
     }
 
     this.showError(errorMessage);
@@ -67,7 +68,7 @@ class MobileValidation extends FormValidator {
   validate () {
     let errorMessage = '';
 
-    if (this.input.validity.valueMissing) {
+    if (this.input.value.length === 0) {
       errorMessage = 'Can we have your number?';
     } else if (this.input.value.length !== 10) {
       errorMessage = '10 digit numbers';
@@ -85,8 +86,43 @@ class FirstnameValidation extends FormValidator {
   validate () {
     let errorMessage = '';
 
-    if (this.input.validity.valueMissing) {
+    if (this.input.value.length === 0) {
       errorMessage = 'And you are..?!';
+    }
+
+    this.showError(errorMessage);
+  }
+}
+
+class PasswordValidation extends FormValidator {
+  constructor () {
+    super ('password');
+  }
+
+  validate () {
+
+    let errorMessage = '';
+
+    if (this.input.value.length === 0) {
+      errorMessage = 'Set a secure password!';
+    }
+
+    this.showError(errorMessage);
+  }
+}
+
+class ConfirmPasswordValidation extends FormValidator {
+  constructor () {
+    super ('confirm-password');
+    this.passwordElement = document.getElementById('password');
+  }
+
+  validate () {
+
+    let errorMessage = '';
+
+    if (this.passwordElement.value != this.input.value) {
+      errorMessage = 'Must match password!'
     }
 
     this.showError(errorMessage);
@@ -100,15 +136,25 @@ function main () {
   const validations = [
     new EmailValidation(),
     new FirstnameValidation(),
-    new MobileValidation()
+    new MobileValidation(),
+    new PasswordValidation(),
+    new ConfirmPasswordValidation()
   ];
 
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit",  (event) => {
   
     validations.forEach(validator => validator.validate());
 
+    if (form.checkValidity()) {
+      const formData = new FormData(form);
+      const formDataEntries = Array.from(formData.entries());
+      console.table(formDataEntries);
+    } else {
+      console.warn('Invalid form values');
+    }
+
     event.preventDefault();
-  })
+  });
 }
 
 main();
