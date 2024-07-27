@@ -149,6 +149,7 @@ function main () {
       const formData = new FormData(form);
       const formDataEntries = Array.from(formData.entries());
       console.table(formDataEntries);
+      alert ('Check console for form data!')
     } else {
       console.warn('Invalid form values');
     }
