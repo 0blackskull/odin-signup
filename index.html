@@ -28,36 +28,42 @@
         <br>
         You <em>know</em> you want to.
       </p>
-      <form action="" method="post">
+      <form action="" method="post" novalidate>
         <h2>Let's do this!</h2>
         <div class="form-row">
           <div class="label-input">
             <label for="first-name">FIRST NAME</label>
             <input type="text" id="first-name" name="first_name">
+            <span class="error" aria-live="polite"></span>
           </div>
           <div class="label-input">
             <label for="last-name">LAST NAME</label>
             <input type="text" id="last-name" name="last_ame">
+            <span class="error" aria-live="polite"></span>
           </div>
         </div>
         <div class="form-row">
           <div class="label-input">
             <label for="email">EMAIL</label>
             <input type="email" id="email" name="email">
+            <span class="error" aria-live="polite"></span>
           </div>
           <div class="label-input">
             <label for="mobile">PHONE NUMBER</label>
             <input type="number" id="mobile" name="mobile">
+            <span class="error" aria-live="polite"></span>
           </div>
         </div>
         <div class="form-row">
           <div class="label-input">
             <label for="password">PASSWORD</label>
             <input type="password" id="password" name="password">
+            <span class="error" aria-live="polite"></span>
           </div>
           <div class="label-input">
             <label for="confirm-password">CONFIRM PASSWORD</label>
             <input type="password" id="confirm-password" name="confirm_password">
+            <span class="error" aria-live="polite"></span>
           </div>
         </div>
         <button type="submit">Create Account</button>
@@ -65,6 +71,7 @@
       </form>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
 
 </html>

@@ -202,6 +202,12 @@ html {
       box-shadow: none;
     }
 
+    .error {
+      font-weight: bold;
+      color: #f66464;
+`
+    }
+
     .form-row label {
       display: block;
       margin: 1.5rem 0 0.5rem 0;
